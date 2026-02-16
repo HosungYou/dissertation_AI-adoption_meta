@@ -1,0 +1,376 @@
+# Sabherwal et al. (2006) Prior Specifications for Bayesian MASEM
+# Informative priors for traditional TAM/UTAUT paths from general IT meta-analysis
+# Weakly informative priors for AI-specific paths (no historical data)
+
+reference:
+  authors: "Sabherwal, R., Jeyaraj, A., & Chowa, C."
+  year: 2006
+  title: "Information system success: Individual and organizational determinants"
+  journal: "Management Science"
+  volume: 52
+  issue: 12
+  pages: "1849-1864"
+  doi: "10.1287/mnsc.1060.0580"
+  context: "Meta-analysis of general IT/IS adoption studies (pre-AI era)"
+  sample: "k = 612 correlations from 121 studies, N = 63,524"
+  note: "Provides empirical priors for traditional technology acceptance paths"
+
+bayesian_approach:
+  rationale: |
+    Use Sabherwal et al. (2006) meta-analytic estimates as informative priors for traditional TAM/UTAUT paths.
+    This approach:
+    1. Incorporates decades of IT adoption research into AI adoption analysis
+    2. Allows Bayesian updating: if AI context differs, data will shift posterior away from prior
+    3. Tests hypothesis: "AI adoption ≠ general IT adoption" via prior-posterior comparison
+    4. Provides more stable estimates for paths with limited AI-specific studies
+
+  hypothesis_testing:
+    h0: "AI adoption paths = general IT adoption paths (posterior ≈ prior)"
+    h1: "AI adoption paths ≠ general IT adoption paths (posterior substantially different from prior)"
+    metric: "Bayes Factor comparing prior vs. posterior distributions"
+
+informative_priors:
+  description: "Traditional TAM/UTAUT paths: Use Sabherwal et al. (2006) estimates as Normal priors"
+
+  PE_to_BI:
+    distribution: "normal"
+    mean: 0.52
+    sd: 0.05
+    sabherwal_label: "Perceived Usefulness → Behavioral Intention"
+    sabherwal_estimate: 0.52
+    sabherwal_se: 0.05
+    sabherwal_k: 87  # number of studies
+    sabherwal_ci_95: [0.42, 0.62]
+    interpretation: "Strong, well-established path in IT literature"
+    expected_ai_context: "May be similar or slightly stronger in AI (performance gains can be substantial)"
+
+  EE_to_BI:
+    distribution: "normal"
+    mean: 0.38
+    sd: 0.06
+    sabherwal_label: "Perceived Ease of Use → Behavioral Intention"
+    sabherwal_estimate: 0.38
+    sabherwal_se: 0.06
+    sabherwal_k: 82
+    sabherwal_ci_95: [0.26, 0.50]
+    interpretation: "Moderate path; sometimes fully mediated by attitude in TAM"
+    expected_ai_context: "May be weaker if AI usability is less salient than trust/anxiety"
+
+  SI_to_BI:
+    distribution: "normal"
+    mean: 0.34
+    sd: 0.05
+    sabherwal_label: "Subjective Norm → Behavioral Intention"
+    sabherwal_estimate: 0.34
+    sabherwal_se: 0.05
+    sabherwal_k: 45
+    sabherwal_ci_95: [0.24, 0.44]
+    interpretation: "Moderate path; context-dependent (stronger in mandatory settings)"
+    expected_ai_context: "May be similar; social influence operates similarly across technologies"
+
+  FC_to_UB:
+    distribution: "normal"
+    mean: 0.25
+    sd: 0.08
+    sabherwal_label: "Facilitating Conditions → System Use"
+    sabherwal_estimate: 0.25
+    sabherwal_se: 0.08
+    sabherwal_k: 28
+    sabherwal_ci_95: [0.09, 0.41]
+    interpretation: "Small-medium path; often absorbed by Effort Expectancy in some models"
+    expected_ai_context: "May be similar; organizational support matters across technologies"
+    note: "Wider SD reflects smaller number of studies (k=28) and higher heterogeneity"
+
+  ATT_to_BI:
+    distribution: "normal"
+    mean: 0.40
+    sd: 0.06
+    sabherwal_label: "Attitude → Behavioral Intention"
+    sabherwal_estimate: 0.40
+    sabherwal_se: 0.06
+    sabherwal_k: 65
+    sabherwal_ci_95: [0.28, 0.52]
+    interpretation: "Strong path in TAM; dropped from UTAUT but empirically robust"
+    expected_ai_context: "May be similar; overall evaluation predicts intention consistently"
+
+  BI_to_UB:
+    distribution: "normal"
+    mean: 0.45
+    sd: 0.07
+    sabherwal_label: "Behavioral Intention → System Use"
+    sabherwal_estimate: 0.45
+    sabherwal_se: 0.07
+    sabherwal_k: 72
+    sabherwal_ci_95: [0.31, 0.59]
+    interpretation: "Core TRA/TPB path; intention-behavior link well-established"
+    expected_ai_context: "Likely similar; intention-behavior gap exists but fundamental relationship stable"
+    note: "May be moderated by voluntariness (stronger for voluntary adoption)"
+
+  EE_to_ATT:
+    distribution: "normal"
+    mean: 0.30
+    sd: 0.06
+    sabherwal_label: "Perceived Ease of Use → Attitude"
+    sabherwal_estimate: 0.30
+    sabherwal_se: 0.06
+    sabherwal_k: 55
+    sabherwal_ci_95: [0.18, 0.42]
+    interpretation: "Moderate indirect path in TAM; ease of use shapes affective response"
+    expected_ai_context: "May be similar; usability influences attitude across technologies"
+
+  PE_to_ATT:
+    distribution: "normal"
+    mean: 0.42
+    sd: 0.05
+    sabherwal_label: "Perceived Usefulness → Attitude"
+    sabherwal_estimate: 0.42
+    sabherwal_se: 0.05
+    sabherwal_k: 68
+    sabherwal_ci_95: [0.32, 0.52]
+    interpretation: "Strong path in TAM; usefulness drives favorable attitude"
+    expected_ai_context: "May be similar; performance expectations shape attitude consistently"
+
+weakly_informative_priors:
+  description: "AI-specific paths: No prior IT literature; use weakly informative priors centered at zero"
+  rationale: |
+    No general IT meta-analyses include AI-specific constructs (trust, anxiety, transparency, autonomy).
+    Use weakly informative N(0, 0.20) priors:
+    - Mean = 0: No strong directional expectation from prior data
+    - SD = 0.20: Allows wide range (-0.40 to +0.40 covers 95% prior probability)
+    - Regularization: Prevents overfitting but allows data to dominate
+
+  TRU_to_BI:
+    distribution: "normal"
+    mean: 0.00
+    sd: 0.20
+    theoretical_expectation: "positive (β ≈ 0.30-0.50)"
+    rationale: "AI trust is novel construct; no general IT prior available"
+    note: "Weakly informative prior; data will dominate posterior"
+
+  ANX_to_BI:
+    distribution: "normal"
+    mean: 0.00
+    sd: 0.20
+    theoretical_expectation: "negative (β ≈ −0.20 to −0.30)"
+    rationale: "Computer anxiety existed in IT literature but not meta-analyzed by Sabherwal et al."
+    note: "Zero-centered prior despite expected negative sign; let data determine direction/magnitude"
+
+  TRA_to_TRU:
+    distribution: "normal"
+    mean: 0.00
+    sd: 0.20
+    theoretical_expectation: "positive (β ≈ 0.40-0.60)"
+    rationale: "Transparency → trust is AI-specific relationship (XAI literature)"
+    note: "No historical IT data; entirely data-driven"
+
+  AUT_to_ANX:
+    distribution: "normal"
+    mean: 0.00
+    sd: 0.20
+    theoretical_expectation: "positive (β ≈ 0.20-0.30)"
+    rationale: "Autonomy → anxiety is AI-specific (automation anxiety)"
+    note: "Weakly informative; limited prior theory"
+
+  SE_to_EE:
+    distribution: "normal"
+    mean: 0.00
+    sd: 0.20
+    theoretical_expectation: "positive (β ≈ 0.30-0.40)"
+    rationale: "Self-efficacy → ease of use less studied in IT meta-analyses"
+    note: "TAM2 includes this path but not meta-analyzed by Sabherwal et al."
+    alternative: "Could use TAM2 individual study estimates if desired"
+
+  SE_to_ANX:
+    distribution: "normal"
+    mean: 0.00
+    sd: 0.20
+    theoretical_expectation: "negative (β ≈ −0.25 to −0.35)"
+    rationale: "Self-efficacy reduces anxiety; well-established in psychology but not IT meta-analysis"
+    note: "Could use stronger prior from anxiety literature, but keeping weakly informative for consistency"
+
+prior_sensitivity_analysis:
+  diffuse_priors:
+    description: "Re-run analysis with non-informative priors for all paths to assess prior influence"
+    specification:
+      all_paths:
+        distribution: "normal"
+        mean: 0.00
+        sd: 10.0
+        note: "Effectively flat prior over plausible parameter space"
+    comparison: "Compare posteriors from informative vs. diffuse priors"
+    interpretation: |
+      - If posteriors similar → data are strong, prior has little influence
+      - If posteriors differ substantially → prior is influential; interpret with caution
+
+  alternative_prior_sources:
+    utaut_meta_analysis:
+      source: "Dwivedi et al. (2019). Re-examining UTAUT. Information Systems Frontiers."
+      note: "More recent UTAUT meta-analysis; could use as alternative priors"
+      coverage: "PE→BI, EE→BI, SI→BI, FC→UB"
+
+    tam_meta_analysis:
+      source: "King & He (2006). A meta-analysis of TAM. Information & Management."
+      note: "Classic TAM meta-analysis; alternative to Sabherwal et al."
+      coverage: "PE→BI, EE→BI, PE→ATT, EE→ATT, ATT→BI"
+
+hyperpriors:
+  description: "Hierarchical priors for heterogeneity (τ²)"
+
+  between_study_sd:
+    distribution: "half_cauchy"
+    location: 0
+    scale: 0.5
+    rationale: "Regularizing prior for heterogeneity; prevents overfitting"
+    reference: "Gelman (2006). Prior distributions for variance parameters"
+
+prior_posterior_comparison:
+  metrics:
+    bayes_factor:
+      description: "BF10 = p(data | H1) / p(data | H0)"
+      h0: "Posterior = Prior (AI same as general IT)"
+      h1: "Posterior ≠ Prior (AI differs from general IT)"
+      interpretation:
+        bf_1_to_3: "Anecdotal evidence for difference"
+        bf_3_to_10: "Moderate evidence"
+        bf_10_to_30: "Strong evidence"
+        bf_30_to_100: "Very strong evidence"
+        bf_gt_100: "Extreme evidence"
+
+    prior_posterior_overlap:
+      description: "Calculate overlap between prior and posterior distributions"
+      metric: "Bhattacharyya coefficient (0 = no overlap, 1 = identical)"
+      interpretation:
+        overlap_gt_0_8: "Minimal shift; AI similar to general IT"
+        overlap_0_5_to_0_8: "Moderate shift; some AI-specific differences"
+        overlap_lt_0_5: "Substantial shift; AI differs from general IT"
+
+    posterior_probability:
+      description: "P(β_AI > β_IT + δ | data) for meaningful difference threshold δ"
+      threshold_delta: 0.10
+      interpretation:
+        prob_gt_0_95: "Highly credible that AI differs from general IT"
+        prob_0_80_to_0_95: "Credible difference"
+        prob_lt_0_80: "Uncertain; could be similar to general IT"
+
+  focal_comparisons:
+    - path: "PE_to_BI"
+      prior_mean: 0.52
+      hypothesis: "AI performance expectancy effect similar to general IT"
+      expected_result: "Posterior may be similar or slightly higher"
+
+    - path: "EE_to_BI"
+      prior_mean: 0.38
+      hypothesis: "AI ease of use less critical than in general IT (trust/anxiety more important)"
+      expected_result: "Posterior may be lower than prior"
+
+    - path: "TRU_to_BI"
+      prior_mean: 0.00
+      hypothesis: "AI trust has substantial positive effect (no general IT prior)"
+      expected_result: "Posterior substantially positive (β ≈ 0.30-0.50)"
+
+    - path: "ANX_to_BI"
+      prior_mean: 0.00
+      hypothesis: "AI anxiety has negative effect (more salient than in general IT)"
+      expected_result: "Posterior substantially negative (β ≈ −0.20 to −0.30)"
+
+posterior_predictive_checks:
+  description: "Assess model fit by comparing observed data to posterior predictive distribution"
+
+  replicated_datasets:
+    n_replications: 1000
+    method: "Sample from posterior, generate predicted correlation matrices"
+
+  discrepancy_measures:
+    - "Mean absolute difference between observed and predicted correlations"
+    - "Maximum absolute difference"
+    - "Chi-square discrepancy"
+
+  interpretation:
+    good_fit: "Observed data falls within 95% posterior predictive interval"
+    poor_fit: "Observed data extreme relative to posterior predictions"
+
+prior_elicitation_notes:
+  sabherwal_limitations:
+    - "Published 2006; pre-AI era (oldest studies from 1990s)"
+    - "Focused on organizational IS adoption (may differ from consumer AI adoption)"
+    - "Did not include AI-specific constructs"
+    - "Heterogeneity was substantial (I² > 50% for most paths)"
+
+  alternative_approach:
+    description: "Could use empirical Bayes to estimate priors from current AI adoption data subset"
+    method: "Fit model to 70% random sample, use estimates as priors for remaining 30%"
+    advantage: "More directly relevant to AI context"
+    disadvantage: "Loses information; less theoretically justified"
+
+  expert_elicitation:
+    description: "Alternative: elicit priors from AI adoption experts"
+    method: "Survey 10-20 experts on expected path coefficients for AI adoption"
+    advantage: "Incorporates domain expertise not captured in historical data"
+    disadvantage: "Subjective; expert predictions often miscalibrated"
+
+reporting_standards:
+  prior_specification:
+    - "Report all priors (informative and weakly informative) in supplementary materials"
+    - "Justify choice of Sabherwal et al. (2006) as prior source"
+    - "Explain weakly informative prior specification (N(0, 0.20))"
+
+  prior_sensitivity:
+    - "Report posterior estimates under both informative and diffuse priors"
+    - "Quantify prior influence on posteriors"
+    - "Discuss robustness of conclusions to prior choice"
+
+  prior_posterior_shift:
+    - "Report Bayes Factors for prior-posterior difference"
+    - "Visualize prior vs. posterior distributions (density plots)"
+    - "Interpret shift in substantive terms (AI vs. general IT)"
+
+implementation:
+  software: "Stan via blavaan (R)"
+
+  stan_code_snippet: |
+    data {
+      int<lower=1> N;  // number of studies
+      int<lower=1> P;  // number of paths
+      matrix[P,P] S[N];  // sample correlation matrices
+      int<lower=1> n[N];  // sample sizes
+    }
+
+    parameters {
+      // Path coefficients
+      real beta_PE_BI;
+      real beta_EE_BI;
+      // ... (other paths)
+
+      // Between-study heterogeneity
+      real<lower=0> tau;
+    }
+
+    model {
+      // Informative priors (Sabherwal et al., 2006)
+      beta_PE_BI ~ normal(0.52, 0.05);
+      beta_EE_BI ~ normal(0.38, 0.06);
+      // ...
+
+      // Weakly informative priors (AI-specific)
+      beta_TRU_BI ~ normal(0.00, 0.20);
+      beta_ANX_BI ~ normal(0.00, 0.20);
+      // ...
+
+      // Hyperprior for heterogeneity
+      tau ~ cauchy(0, 0.5);
+
+      // Likelihood (correlations from implied SEM model)
+      for (i in 1:N) {
+        S[i] ~ wishart(n[i], Sigma_implied);
+      }
+    }
+
+references:
+  - "Dwivedi, Y. K., et al. (2019). Re-examining the Unified Theory of Acceptance and Use of Technology (UTAUT). Information Systems Frontiers, 21, 719-734."
+  - "Gelman, A. (2006). Prior distributions for variance parameters in hierarchical models. Bayesian Analysis, 1(3), 515-534."
+  - "King, W. R., & He, J. (2006). A meta-analysis of the technology acceptance model. Information & Management, 43(6), 740-755."
+  - "Sabherwal, R., Jeyaraj, A., & Chowa, C. (2006). Information system success: Individual and organizational determinants. Management Science, 52(12), 1849-1864."
+
+version: "1.0.0"
+date_created: "2026-02-16"
+last_modified: "2026-02-16"

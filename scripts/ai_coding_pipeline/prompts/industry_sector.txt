@@ -1,0 +1,183 @@
+You are an expert in organizational research and industry classification.
+
+Your task is to classify the INDUSTRY SECTOR in which the AI adoption study was conducted.
+
+INDUSTRY SECTOR CATEGORIES:
+
+1. **Education**
+   - K-12 schools, universities, colleges, online education platforms
+   - Educational technology companies
+   - Training and development organizations
+   - Examples: University students using AI tutors, teachers adopting AI grading tools
+
+2. **Healthcare**
+   - Hospitals, clinics, medical practices
+   - Pharmaceutical companies, health insurance
+   - Medical device companies
+   - Public health organizations
+   - Examples: Physicians using clinical decision support AI, nurses using predictive tools
+
+3. **Business/Finance**
+   - Financial services, banking, insurance, investment firms
+   - Consulting firms, professional services
+   - Accounting, auditing firms
+   - Examples: Financial analysts using AI forecasting, bankers using fraud detection AI
+
+4. **Manufacturing**
+   - Production, assembly, industrial operations
+   - Automotive, aerospace, electronics manufacturing
+   - Process industries (chemicals, food production)
+   - Supply chain and logistics
+   - Examples: Factory workers using AI quality control, engineers using predictive maintenance
+
+5. **Technology**
+   - Software companies, tech startups
+   - IT departments, technology services
+   - Telecommunications, electronics
+   - Digital platforms, social media companies
+   - Examples: Developers using AI coding assistants, IT professionals using automation tools
+
+6. **Government**
+   - Public sector organizations
+   - Government agencies (local, state, federal)
+   - Military, defense organizations
+   - Public administration
+   - Examples: Government employees using AI for citizen services, policy analysis tools
+
+7. **Mixed/General**
+   - Study spans multiple industries
+   - General workforce sample across sectors
+   - Non-industry-specific (e.g., general consumer sample)
+   - Industry not specified or unclear
+
+CLASSIFICATION GUIDELINES:
+
+1. **Look for explicit industry statements**:
+   - "Participants were recruited from healthcare organizations"
+   - "The sample consisted of manufacturing employees"
+   - "Data were collected from a financial services firm"
+
+2. **Infer from participant descriptions**:
+   - "Physicians and nurses" → Healthcare
+   - "Software developers" → Technology
+   - "MBA students" → Education (even if business-focused)
+   - "Bank employees" → Business/Finance
+
+3. **Common locations for industry information**:
+   - Method → Participants → Sample description
+   - Introduction → Study context
+   - Discussion → Practical implications section
+   - Abstract → Brief context mention
+
+4. **Handle ambiguous cases**:
+   - If participants from ONE specific organization → Use that organization's industry
+   - If participants from MULTIPLE organizations in SAME sector → Use that sector
+   - If participants from MULTIPLE sectors → "Mixed/General"
+   - If industry genuinely unclear → "Mixed/General"
+
+5. **Student samples**:
+   - Students studying IN an educational setting → Education
+   - Even if business students, engineering students, medical students → Education
+   - UNLESS: Study of working professionals taking classes part-time → Use their work industry
+
+6. **Consumer/general public samples**:
+   - General consumers using AI products → "Mixed/General"
+   - Online panel samples → "Mixed/General"
+   - Community samples → "Mixed/General"
+
+INDUSTRY-SPECIFIC AI EXAMPLES:
+
+**Education**:
+- AI grading systems, intelligent tutoring systems, plagiarism detection
+- Learning analytics, personalized learning platforms
+
+**Healthcare**:
+- Clinical decision support, diagnostic AI, robotic surgery
+- Electronic health records with AI, predictive patient monitoring
+
+**Business/Finance**:
+- Algorithmic trading, fraud detection, credit scoring
+- Customer relationship management AI, chatbots for customer service
+
+**Manufacturing**:
+- Predictive maintenance, quality control AI, robotics
+- Supply chain optimization, demand forecasting
+
+**Technology**:
+- Code generation tools, DevOps automation, testing AI
+- Recommendation engines, search algorithms
+
+**Government**:
+- Fraud detection in benefits systems, predictive policing
+- Citizen service chatbots, policy analysis tools
+
+OUTPUT FORMAT:
+
+Return a JSON object:
+
+{
+  "industry_sector": "Education|Healthcare|Business/Finance|Manufacturing|Technology|Government|Mixed/General",
+  "industry_description": "brief description of organizational context",
+  "organization_type": "public|private|non-profit|government|mixed|not specified",
+  "organization_size": "small (<50)|medium (50-500)|large (>500)|not specified",
+  "classification_confidence": "high|moderate|low",
+  "notes": "additional context or classification rationale"
+}
+
+EXAMPLES:
+
+Example 1 - Healthcare:
+{
+  "industry_sector": "Healthcare",
+  "industry_description": "Hospital system implementing clinical decision support AI",
+  "organization_type": "private",
+  "organization_size": "large (>500)",
+  "classification_confidence": "high",
+  "notes": "Study conducted in 3 hospitals within same health system"
+}
+
+Example 2 - Education:
+{
+  "industry_sector": "Education",
+  "industry_description": "University students using AI writing assistants",
+  "organization_type": "public",
+  "organization_size": "large (>500)",
+  "classification_confidence": "high",
+  "notes": "Students from business school, but context is educational"
+}
+
+Example 3 - Mixed:
+{
+  "industry_sector": "Mixed/General",
+  "industry_description": "General workforce sample across multiple industries",
+  "organization_type": "mixed",
+  "organization_size": "not specified",
+  "classification_confidence": "moderate",
+  "notes": "Online panel survey with participants from various sectors including tech, finance, retail, healthcare"
+}
+
+Example 4 - Technology:
+{
+  "industry_sector": "Technology",
+  "industry_description": "Software developers using AI code generation tools",
+  "organization_type": "private",
+  "organization_size": "medium (50-500)",
+  "classification_confidence": "high",
+  "notes": "Tech company employees, focus on GitHub Copilot adoption"
+}
+
+Example 5 - Government:
+{
+  "industry_sector": "Government",
+  "industry_description": "Public sector workers using AI for administrative tasks",
+  "organization_type": "government",
+  "organization_size": "large (>500)",
+  "classification_confidence": "high",
+  "notes": "Municipal government employees across multiple departments"
+}
+
+QUALITY CHECKS:
+- Does industry classification align with described participants and context?
+- Is organization_type consistent with industry_sector?
+- Is confidence level appropriate given available information?
+- Are mixed/unclear cases properly flagged?
