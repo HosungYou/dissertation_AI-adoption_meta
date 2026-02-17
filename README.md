@@ -1,6 +1,6 @@
-# AI Adoption Meta-Analytic Structural Equation Modeling (MASEM)
+# Rethinking AI Adoption in Organizational Contexts: A Meta-Analytic Structural Equation Modeling Approach
 
-> A comprehensive meta-analytic structural equation modeling study synthesizing AI adoption research to test the validity of TAM/UTAUT frameworks in artificial intelligence contexts.
+> A comprehensive meta-analytic structural equation modeling study synthesizing AI adoption research across organizational contexts to test the validity of TAM/UTAUT frameworks in artificial intelligence adoption by employees, managers, and knowledge workers.
 
 ## Research Questions
 
@@ -81,4 +81,4 @@ This work is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/
 
 ## Author
 
-Hosung You — Doctoral Dissertation Research
+Hosung You — Doctoral Dissertation Research (Organizational AI Adoption)
